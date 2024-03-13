@@ -39,4 +39,5 @@ Route::controller(UserData::class)->group(function () {
     Route::get('/view/{id}', 'view')->name('show');
     Route::get('/update/{id}' , 'updatePage')->name('updatePage');
     Route::post('update-data/{id}' , 'updateData')->name('updateData');
+    Route::get('logout' , 'logout')->name('logout');
 });

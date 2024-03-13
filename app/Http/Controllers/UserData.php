@@ -45,20 +45,25 @@ class UserData extends Controller
             ->where('email', '=', $req->email)
             ->where('password', '=', md5($req->password))->get();
 
-
         if (count($getData) == 0) {
             echo "<script> alert('Invalid Email or Password') </script>";
         } else {
-            return redirect()->route('read');
+            if ($getData) {
+                $req->session()->put('key', true);
+                return redirect()->route('read');
+            } else {
+                return redirect()->route('signin'); // Redirect to sign-in page if session is not set
+            }
         }
-
-
-        return view('signin');
     }
 
 
     public function readData()
     {
+        if (!session()->has('key')) {
+            return redirect()->route('signin'); // Redirect to sign-in page if session is not set
+        }
+
         $readData = DB::table('crud')->select('id', 'fname', 'lname', 'email')->get();
 
         return view('table', compact('readData'));
@@ -66,6 +71,11 @@ class UserData extends Controller
 
     public function deleteData(string $id)
     {
+
+        if (!session()->has('key')) {
+            return redirect()->route('signin'); // Redirect to sign-in page if session is not set
+        }
+
         $del = DB::table('crud')->where('id', $id)->delete();
 
         if ($del) {
@@ -76,6 +86,10 @@ class UserData extends Controller
     }
     public function view(string $id)
     {
+        if (!session()->has('key')) {
+            return redirect()->route('signin'); // Redirect to sign-in page if session is not set
+        }
+
         $del = DB::table('crud')->where('id', $id)->get();
 
         return view('view', compact('del'));
@@ -84,6 +98,10 @@ class UserData extends Controller
 
     public function updatePage(string $id)
     {
+        if (!session()->has('key')) {
+            return redirect()->route('signin'); // Redirect to sign-in page if session is not set
+        }
+
         $user = DB::table('crud')->find($id);
 
         // dd($user);
@@ -92,6 +110,9 @@ class UserData extends Controller
 
     public function updateData(Request $request, $id)
     {
+        if (!session()->has('key')) {
+            return redirect()->route('signin'); // Redirect to sign-in page if session is not set
+        }
 
         if ($request->password == $request->cpassword) {
             $user = DB::table('crud')->where('id', $id)->update(
@@ -104,11 +125,9 @@ class UserData extends Controller
                     'cpassword' => md5($request->cpassword),
                 ]
             );
-         }else {
+        } else {
             echo "<script> alert('Password Not Match') </script>";
-
-            $error = "<h1>NO</h1>";
-         }
+        }
 
 
         if (@$user) {
@@ -116,8 +135,12 @@ class UserData extends Controller
         } else {
             'Data Not UPdated';
         }
-
     }
 
-}
+    public function logout()
+    {
+        session()->forget('key');
 
+        return redirect()->route('signin');
+    }
+}

@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="en">
 
@@ -25,23 +27,29 @@
         <tbody>
             @foreach ($readData as $data)
                 <tr>
-                    <td class="border-1 border-white fw-bold bg-danger text-white text-center">{{ $loop->iteration }}</td>
+                    <td class="border-1 border-white fw-bold bg-danger text-white text-center">{{ $loop->iteration }}
+                    </td>
                     <td class="border-1 border-black text-center">{{ $data->fname }}</td>
                     <td class="border-1 border-black text-center">{{ $data->lname }}</td>
                     <td class="border-1 border-black text-center">{{ $data->email }}</td>
                     <td class="border-1 border-black text-center">
-                        <a href="{{ route('updatePage' , $data->id) }}"><button class="btn btn-primary btn-sm">Update</button></a>
+                        <a href="{{ route('updatePage', $data->id) }}"><button
+                                class="btn btn-primary btn-sm">Update</button></a>
                     </td>
                     <td class="border-1 border-black text-white text-center">
-                        <a href="{{ route('delete' , $data->id) }}"><button class="btn btn-danger btn-sm">Delete</button></a>
+                        <a href="{{ route('delete', $data->id) }}"><button
+                                class="btn btn-danger btn-sm">Delete</button></a>
                     </td>
                     <td class="border-1 border-black text-white text-center">
-                        <a href="{{ route('show' , $data->id) }}"><button class="btn btn-success btn-sm">View</button></a>
+                        <a href="{{ route('show', $data->id) }}"><button
+                                class="btn btn-success btn-sm">View</button></a>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <a href="{{ route('logout') }}"><button class="btn btn-primary float-end m-5">Logout</button></a>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>

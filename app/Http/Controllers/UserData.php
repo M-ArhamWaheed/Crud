@@ -55,6 +55,8 @@ class UserData extends Controller
                 return redirect()->route('signin'); // Redirect to sign-in page if session is not set
             }
         }
+
+        return view ('signin');
     }
 
 

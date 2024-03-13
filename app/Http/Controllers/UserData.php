@@ -52,6 +52,7 @@ class UserData extends Controller
             return redirect()->route('read');
         }
 
+
         return view('signin');
     }
 
@@ -117,5 +118,6 @@ class UserData extends Controller
         }
 
     }
+
 }
 

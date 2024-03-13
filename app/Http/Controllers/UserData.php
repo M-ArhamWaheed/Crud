@@ -104,7 +104,6 @@ class UserData extends Controller
 
         $user = DB::table('crud')->find($id);
 
-        // dd($user);
         return view('update', compact('user'));
     }
 

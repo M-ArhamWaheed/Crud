@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +15,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title text-center">Update</h4>
-                        <form action=" {{ route('updateData', $user->id)}}" method="POST">
+                        <form action=" {{ route('updateData', $user->id) }}" method="POST">
                             @csrf
 
                             <div class="form-group">
